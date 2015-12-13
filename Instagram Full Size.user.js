@@ -1,11 +1,14 @@
 // ==UserScript==
 // @name         Instagram Full Size
 // @namespace    https://tesomayn.com
-// @version      2.2.3
+// @version      2.2.4
 // @description  CTRL click an Instagram image to open it's full size
 // @author       TesoMayn
 // @match        *://*.instagram.com/*
-// @grant        none
+// @require      https://greasyfork.org/scripts/14852-patreon-lib/code/Patreonlib.js?version=93835
+// @grant        unsafeWindow
+// @grant        GM_registerMenuCommand
+// @grant        GM_openInTab
 // ==/UserScript==
 
 $(document).ready( function() {
