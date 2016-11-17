@@ -1,22 +1,30 @@
 // ==UserScript==
 // @name         Instagram Full Size
 // @namespace    https://tesomayn.com
-// @version      2.3.1
-// @description  Alt-click an Instagram image or video to open it's full size
+// @version      3.0.0
+// @description  Middle Mouse Click Any Image To Open Full Size
 // @author       TesoMayn
 // @match        *://*.instagram.com/*
 // @grant        unsafeWindow
+// @require      https://code.jquery.com/jquery-3.1.1.min.js
 // ==/UserScript==
-
-$(document).ready( function(x) {
-    function makeLarge() {
-        $('#react-root > section > main > article > div > div > div > a, #react-root > section > main > section > div > div > article > div').each( function(m) {
-            $(this).mousedown( function(e) {
-                var full = $(this).find('img').attr('src').replace(/e35\/.*\//, '').replace(/[p|s][0-9]\w+/g, '');
-                if( e.altKey ) { window.open(full, '_blank'); console.log(full); }
-            });
+$(document).ready( function() {
+    $(window).on('load scroll', function() {
+        $("body > span > section > main > article > header > div > img").on('mousedown', function(d) {
+            if( (d.which == 2) ) {
+                var dp = $(this).attr('src').replace(/[p|s][0-9]\w+/g, '');
+                window.open(dp, '_blank');
+            }
+            d.preventDefault();
         });
-    }
-    makeLarge();
-    $(window).scroll( function() { makeLarge(); });
+
+        $("body > span > section > main > article > div > div > div > a").on('mousedown', function(e) {
+            if( (e.which == 2) ) {
+                var full = $(this).find('img').attr('src').replace(/e35\/.*\//, '').replace(/[p|s][0-9]\w+/g, '');
+                window.open(full, '_blank');
+            }
+            e.preventDefault();
+        });
+    });
+    console.log('Instagram Full-Size v'+GM_info.script.version+' Initialized');
 });
